@@ -1,0 +1,45 @@
+<launch>
+  <arg name="com_mode" default="script" /> <!-- or  auto_update, polling -->
+
+  <arg name="gripperIP" default="160.69.69.101" />
+
+  <arg name="gripper_model" default="wsg_50" />
+
+  <!--Don't change this value | Not supported yet | If you want to change finger position use the Lua script on the gripper-->
+  <arg name="fingerPosition" default="0" />
+
+  <!-- Insert here finger ID [e.g. #F001-28A] | You MUST provide a calibration folder in <pkg-name>/Finger_files-->
+  <arg name="fingerCode" default="#F004-28A" />
+
+  <arg name="linearCalib" default="false" />
+
+
+
+
+  <node  name="$(arg gripper_model)_driver_sun"  pkg="wsg_50_driver_sun" type="wsg_50_ip_sun" output="screen" required="true">
+	<param name="ip" type="string" value="$(arg gripperIP)"/> <!--Remember to set the ip address-->
+	<param name="port" type="int" value="1000"/>
+    <param name="protocol" type="string" value="tcp"/>
+    <param name="com_mode" type="string" value="$(arg com_mode)"/>
+    <param name="rate" type="double" value="50"/> <!-- WSG50 HW revision 2: up to 30 Hz with script; 140Hz with auto_update -->
+    <param name="grasping_force" type="double" value="500"/>
+  </node>
+
+
+  <!-- "fingerPosition" is for future scenarios with both fingers | not Supported yet | don't change the value -->
+  <node name="read_wrench" ns="$(arg gripper_model)_driver_sun/finger$(arg fingerPosition)/" pkg="wsg_50_driver_sun" type="read_wrench" output="screen">
+
+    <!-- Insert here finger ID [#A123-45B] | You MUST provide a calibration folder in <pkg-name>/Finger_files-->
+	<param name="fingerCode" type="string" value="$(arg fingerCode)"/>
+
+    <!--Don't change this value | Not supported yet | If you want to change finger position use the Lua script on the gripper-->
+    <param name="fingerPosition" type="int" value="$(arg fingerPosition)"/> 
+
+
+	<param name="linearCalib" type="bool" value="$(arg linearCalib)"/>
+  </node>
+
+
+
+</launch>
+
