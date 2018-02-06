@@ -49,10 +49,13 @@
   <build_depend>std_msgs</build_depend>
   <build_depend>std_srvs</build_depend>
   <build_depend>wsg_50_common_sun</build_depend>
+  <build_depend>refills_unicampania_helper_lib</build_depend>
+
   <run_depend>roscpp</run_depend>
   <run_depend>std_msgs</run_depend>
   <run_depend>std_srvs</run_depend>
   <run_depend>wsg_50_common_sun</run_depend>
+  <run_depend>refills_unicampania_helper_lib</run_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->

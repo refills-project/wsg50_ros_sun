@@ -12,12 +12,13 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   std_srvs
   wsg_50_common_sun
+  refills_unicampania_helper_lib
 )
 
 catkin_package(
 #   INCLUDE_DIRS include
 #  LIBRARIES vh_pixelmap
-  CATKIN_DEPENDS roscpp std_msgs std_srvs wsg_50_common_sun
+  CATKIN_DEPENDS roscpp std_msgs std_srvs wsg_50_common_sun refills_unicampania_helper_lib
 #  DEPENDS system_lib
 )
 
@@ -45,15 +46,10 @@ set(DRIVER_SOURCES_CAN
   src/functions_can.cpp
   src/msg.c)
 
-# REFILLS-LIB-DIR
-set(REFILLS_LIB_DIR
-  /usr/lib/REFILLS-generic-lib
-)
 
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
-  ${REFILLS_LIB_DIR}/include
 )
 
 add_definitions(-DOSNAME_LINUX)
@@ -87,20 +83,11 @@ add_dependencies(wsg_50_ip_sun wsg_50_common_gencpp)
 
 
 
-##################READ TACTILE FORCES###################
-add_library(${PROJECT_NAME}_helper_lib
-	${REFILLS_LIB_DIR}/src/Helper/Helper1.0.cpp
-    ${REFILLS_LIB_DIR}/src/ANN/ANN_Layer1.0.cpp
-    ${REFILLS_LIB_DIR}/src/ANN/ANN1.0.cpp
-)
-
 add_executable(read_wrench src/read_wrench_node.cpp)
 
 add_dependencies(read_wrench ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 target_link_libraries(read_wrench
-	${PROJECT_NAME}_helper_lib
    ${catkin_LIBRARIES}
-	lapack
  )
 
