@@ -22,8 +22,8 @@
 #include <stdio.h>
 #include <iostream>
 
-#include <std_msgs/Float64MultiArray.h>
-#include <geometry_msgs/Wrench.h>
+#include <wsg_50_common_sun/Tactile.h>
+#include <geometry_msgs/WrenchStamped.h>
 
 #include <ros/package.h>
 
@@ -56,8 +56,8 @@ ros::Publisher pubWrench;
 ros::Publisher pubVoltagesRect;
 //----------------------------//
 //**********MSGS*************//
-geometry_msgs::Wrench msgWrench;
-std_msgs::Float64MultiArray msgVoltageRect;
+geometry_msgs::WrenchStamped msgWrench;
+wsg_50_common_sun::Tactile msgVoltageRect;
 //====================================//
 
 

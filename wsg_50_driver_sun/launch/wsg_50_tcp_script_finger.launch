@@ -1,7 +1,7 @@
 <launch>
   <arg name="com_mode" default="script" /> <!-- or  auto_update, polling -->
 
-  <arg name="gripperIP" default="160.69.69.101" />
+  <arg name="gripperIP" default="192.168.102.66" />
 
   <arg name="gripper_model" default="wsg_50" />
 
