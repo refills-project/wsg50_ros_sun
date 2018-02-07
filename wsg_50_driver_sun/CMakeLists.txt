@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_srvs
   wsg_50_common_sun
   refills_unicampania_helper_lib
+  ros_toon
 )
 
 catkin_package(

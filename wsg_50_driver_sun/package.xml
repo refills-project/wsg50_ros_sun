@@ -50,6 +50,7 @@
   <build_depend>std_srvs</build_depend>
   <build_depend>wsg_50_common_sun</build_depend>
   <build_depend>refills_unicampania_helper_lib</build_depend>
+  <build_depend>ros_toon</build_depend>
 
   <run_depend>roscpp</run_depend>
   <run_depend>std_msgs</run_depend>
