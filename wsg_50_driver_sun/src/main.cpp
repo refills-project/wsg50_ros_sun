@@ -353,15 +353,15 @@ void timer_cb(const ros::TimerEvent& ev)
 	// printf("Timer, last duration: %6.1f\n", ev.profile.last_duration.toSec() * 1000.0);
 
 	// ==== Tactile msg ====
-        wsg_50_common_sun::Tactile finger_voltages;
+    wsg_50_common_sun::Tactile finger_voltages;
 	finger_voltages.voltages.data.resize(25);
 	finger_voltages.header.stamp = ros::Time::now(); //Please change to a time saved as soon as we got data
-        finger_voltages.header.frame_id = "fingertip0";  //Please change to a parameter
+    finger_voltages.header.frame_id = "fingertip0";  //Please change to a parameter
 	finger_voltages.voltages.layout.dim.resize(1);
-        finger_voltages.voltages.layout.dim[0].label="voltage";
-        finger_voltages.voltages.layout.dim[0].size=25;
-        finger_voltages.voltages.layout.dim[0].stride=1;
-        finger_voltages.voltages.layout.data_offset=0;
+    finger_voltages.voltages.layout.dim[0].label="voltage";
+    finger_voltages.voltages.layout.dim[0].size=25;
+    finger_voltages.voltages.layout.dim[0].stride=1;
+    finger_voltages.voltages.layout.data_offset=0;
 
 
         

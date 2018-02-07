@@ -21,7 +21,7 @@
 #include <signal.h>
 
 //#include <geometry_msgs/WrenchStamped.h>
-#include <geometry_msgs/Wrench.h>
+#include <geometry_msgs/WrenchStamped.h>
 #include <std_msgs/Float32.h>
 
 
@@ -32,9 +32,9 @@ double fz = 0.0;
 double fr = 0.0;
 float vel_cmd = 0.0;
 std_msgs::Float32 velMsg;
-void readForces(const geometry_msgs::Wrench::ConstPtr& forceMsg)
+void readForces(const geometry_msgs::WrenchStamped::ConstPtr& forceMsg)
 {
-	fz = forceMsg->force.z;
+	fz = forceMsg->wrench.force.z;
 
 	vel_cmd = -1.0*(fr-fabs(fz));
 
