@@ -63,7 +63,7 @@
 
 #include "sensor_msgs/JointState.h"
 #include "std_msgs/Float32.h"
-#include "std_msgs/Float64MultiArray.h"
+#include "wsg_50_common_sun/Tactile.h"
 #include "std_msgs/Bool.h"
 
 using namespace std;
@@ -353,16 +353,26 @@ void timer_cb(const ros::TimerEvent& ev)
 	// printf("Timer, last duration: %6.1f\n", ev.profile.last_duration.toSec() * 1000.0);
 
 	// ==== Tactile msg ====
-	std_msgs::Float64MultiArray finger_voltages;
-	finger_voltages.data.resize(25);
+        wsg_50_common_sun::Tactile finger_voltages;
+	finger_voltages.voltages.data.resize(25);
+	finger_voltages.header.stamp = ros::Time::now(); //Please change to a time saved as soon as we got data
+        finger_voltages.header.frame_id = "fingertip0";  //Please change to a parameter
+	finger_voltages.voltages.layout.dim.resize(1);
+        finger_voltages.voltages.layout.dim[0].label="voltage";
+        finger_voltages.voltages.layout.dim[0].size=25;
+        finger_voltages.voltages.layout.dim[0].stride=1;
+        finger_voltages.voltages.layout.data_offset=0;
+
+
+        
 	if(info.tact_finger0){
 		for(int i=0;i < 25; i++)
-			finger_voltages.data[i] = info.v_finger0[i];
+			finger_voltages.voltages.data[i] = info.v_finger0[i];
 		pub_tact0.publish(finger_voltages);
 	}
 	if(info.tact_finger1){
 		for(int i=0;i < 25; i++)
-			finger_voltages.data[i] = info.v_finger1[i];
+			finger_voltages.voltages.data[i] = info.v_finger1[i];
 		pub_tact1.publish(finger_voltages);
 	}
 
@@ -602,8 +612,8 @@ int main( int argc, char **argv )
 
             setAccSS = nh.advertiseService("set_acceleration", setAccSrv);
             setForceSS = nh.advertiseService("set_force", setForceSrv);
-            pub_tact0 = nh.advertise<std_msgs::Float64MultiArray>("finger0/tactile_voltage", 1);
-            pub_tact1 = nh.advertise<std_msgs::Float64MultiArray>("finger1/tactile_voltage", 1);
+            pub_tact0 = nh.advertise<wsg_50_common_sun::Tactile>("finger0/tactile_voltage", 1);
+            pub_tact1 = nh.advertise<wsg_50_common_sun::Tactile>("finger1/tactile_voltage", 1);
         }
 
 		// Subscriber
