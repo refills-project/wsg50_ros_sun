@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>ros_toon</name>
+  <version>0.0.0</version>
+  <description>Installer for the TooN library using the ROS/CATKIN infrastructure</description>
+
+  <maintainer email="amaldo@cs.uni-bremen.de">Alexis Maldonado</maintainer>
+  <license>BSD</license>
+
+  <url type="website">https://github.com/edrosten/TooN</url>
+  <author email="ed@edwardrosten.com">Tom Drummond, Edward Rosten, et al</author>
+
+  <build_depend>lapack</build_depend>
+  <exec_depend>lapack</exec_depend>
+  <buildtool_depend>catkin</buildtool_depend>
+
+</package>
