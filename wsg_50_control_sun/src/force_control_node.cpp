@@ -36,7 +36,7 @@ void readForces(const geometry_msgs::Wrench::ConstPtr& forceMsg)
 {
 	fz = forceMsg->force.z;
 
-	vel_cmd = -2.5*(fr-fabs(fz));
+	vel_cmd = -1.0*(fr-fabs(fz));
 
 	velMsg.data = vel_cmd;
 
