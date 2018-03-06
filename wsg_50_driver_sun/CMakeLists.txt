@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   wsg_50_common_sun
   refills_unicampania_helper_lib
   ros_toon
+  serial
 )
 
 catkin_package(
@@ -89,6 +90,14 @@ add_executable(read_wrench src/read_wrench_node.cpp)
 add_dependencies(read_wrench ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 target_link_libraries(read_wrench
+   ${catkin_LIBRARIES}
+ )
+ 
+add_executable(read_tactile_serial src/read_tactile_serial_node.cpp)
+
+add_dependencies(read_tactile_serial ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+target_link_libraries(read_tactile_serial
    ${catkin_LIBRARIES}
  )
 
