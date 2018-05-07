@@ -133,11 +133,9 @@ void readV( const wsg_50_common_sun::Tactile::ConstPtr& msg  ){
 
 //==============MAIN================//
 
-int main(int argc, char const *argv[]){
+int main(int argc, char *argv[]){
 
-    int _argc = 0;
-    char** _argv = NULL;
-	ros::init(_argc,_argv,"read_wrench");
+	ros::init(argc,argv,"read_wrench");
 
 	n = new ros::NodeHandle("~");
 
@@ -146,22 +144,17 @@ int main(int argc, char const *argv[]){
     string path("");
     path = ros::package::getPath("wsg_50_driver_sun");
     path = path + "/Finger_files/";
-    int fingerPosition = 0;
-    //sleep(4);
     n->param("fingerCode" , fingerCode, string("null") );
-    n->param("fingerPosition" , fingerPosition, 0 );
-    n->param("linearCalib" , b_linearCalib, true );
+    n->param("linearCalib" , b_linearCalib, false );
+    bool b_filteredVoltage = false;
+    n->param("filteredVoltage" , b_filteredVoltage, false );
 
     if(fingerCode == string("null")){
         cout << BOLDRED << "Error! - No params for 'fingerCode' - stopping node... " << CRESET << endl;
         return -1; 
     }
 
-    if(fingerPosition != 0 /*&& fingerPosition!=1*/ ){ //For future implementations
-        cout << BOLDRED << "Error! - invalid fingerPosition [" << fingerPosition << "] " << CRESET << endl;
-        return -1; 
-    }
-		sleep(1);
+	sleep(1);
     path = path + fingerCode;
 
     if(b_linearCalib){
@@ -174,7 +167,7 @@ int main(int argc, char const *argv[]){
     
     name_space = ros::this_node::getNamespace();
 
-    cout << BOLDBLUE << "Finger " << fingerCode << endl; // /*For future implementation*/ << "  | Position " << fingerPosition << CRESET << endl;
+    cout << BOLDBLUE << "Finger " << fingerCode << endl;
     /*************************************************/
 
     /******INIT ROS MSGS**********/
@@ -195,7 +188,7 @@ int main(int argc, char const *argv[]){
 
     /*******INIT ROS SUB**********/
 	//Status subscriber
-	ros::Subscriber subVoltage = n->subscribe(name_space + "/tactile_voltage",1,readV);
+	ros::Subscriber subVoltage = n->subscribe(name_space + "/tactile_voltage" + ( b_filteredVoltage ? "/filter" : "" ),1,readV);
 	//Remove bias subscriber
 	ros::ServiceServer serviceRemoveBias = n->advertiseService(name_space + "/removeBias", removeBias);
     /***************************/

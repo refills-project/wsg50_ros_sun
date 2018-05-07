@@ -5,7 +5,7 @@
 
   <arg name="gripper_model" default="wsg_50" />
 
-  <!--Don't change this value | Not supported yet | If you want to change finger position use the Lua script on the gripper-->
+
   <arg name="fingerPosition" default="0" />
 
   <!-- Insert here finger ID [e.g. #F001-28A] | You MUST provide a calibration folder in <pkg-name>/Finger_files-->
@@ -26,15 +26,10 @@
   </node>
 
 
-  <!-- "fingerPosition" is for future scenarios with both fingers | not Supported yet | don't change the value -->
   <node name="read_wrench" ns="$(arg gripper_model)_driver_sun/finger$(arg fingerPosition)/" pkg="wsg_50_driver_sun" type="read_wrench" output="screen">
 
     <!-- Insert here finger ID [#A123-45B] | You MUST provide a calibration folder in <pkg-name>/Finger_files-->
 	<param name="fingerCode" type="string" value="$(arg fingerCode)"/>
-
-    <!--Don't change this value | Not supported yet | If you want to change finger position use the Lua script on the gripper-->
-    <param name="fingerPosition" type="int" value="$(arg fingerPosition)"/> 
-
 
 	<param name="linearCalib" type="bool" value="$(arg linearCalib)"/>
   </node>

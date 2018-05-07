@@ -1,0 +1,57 @@
+<launch>
+
+  <arg name="gripper_model" default="wsg_50" />
+
+  <arg name="serial_port" default="/dev/ttyUSB0" />
+  
+  <arg name="fingerPosition" default="0" />
+
+  <!-- Insert here finger ID [e.g. #F001-28A] | You MUST provide a calibration folder in <pkg-name>/Finger_files-->
+  <arg name="fingerCode" default="#H002-28A" />
+
+  <arg name="linearCalib" default="false" />
+  
+  <arg name="filter_voltages" default="true" />
+  
+  <arg name="voltages_count" default="25" />
+  
+  
+  
+  <node name="read_tactile_serial" ns="$(arg gripper_model)_driver_sun/finger$(arg fingerPosition)/" pkg="wsg_50_driver_sun" type="read_tactile_serial" output="screen">
+
+   <param name="serial_port" type="string" value="$(arg serial_port)"/>
+
+   <param name="topic" type="string" value="/$(arg gripper_model)_driver_sun/finger$(arg fingerPosition)/tactile_voltage"/>
+   
+   <param name="voltages_count" type="int" value="$(arg voltages_count)"/>
+
+  </node>
+  
+  
+  
+  <node name="filter_tactile" ns="$(arg gripper_model)_driver_sun/finger$(arg fingerPosition)/" pkg="wsg_50_driver_sun" type="filter_tactile" output="screen" if="$(arg filter_voltages)">
+
+   <param name="serial_port" type="string" value="$(arg serial_port)"/>
+
+   <param name="topic" type="string" value="/$(arg gripper_model)_driver_sun/finger$(arg fingerPosition)/tactile_voltage"/>
+   
+   <param name="voltages_count" type="int" value="$(arg voltages_count)"/>
+
+  </node>
+
+
+  <node name="read_wrench" ns="$(arg gripper_model)_driver_sun/finger$(arg fingerPosition)/" pkg="wsg_50_driver_sun" type="read_wrench" output="screen">
+
+    <!-- Insert here finger ID [#A123-45B] | You MUST provide a calibration folder in <pkg-name>/Finger_files-->
+	<param name="fingerCode" type="string" value="$(arg fingerCode)"/>
+
+	<param name="linearCalib" type="bool" value="$(arg linearCalib)"/>
+	
+	<param name="filter_voltages" type="bool" value="$(arg filter_voltages)"/>
+	
+  </node>
+
+
+
+</launch>
+

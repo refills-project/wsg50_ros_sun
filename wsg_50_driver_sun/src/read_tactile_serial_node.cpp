@@ -34,17 +34,15 @@ ros::NodeHandle* n;
 
 //==============MAIN================//
 
-int main(int argc, char const *argv[]){
+int main(int argc, char *argv[]){
 
-    int _argc = 0;
-    char** _argv = NULL;
-    ros::init(_argc,_argv,"read_wrench");
+    ros::init(argc,argv,"read_tactile_serial");
 
     n = new ros::NodeHandle("~");
 
     /**** CHECK PARAMS ****/
     string serial_port = string("");
-    n->param("serial_port" , serial_port, string("/dev/ttyUSB1") );
+    n->param("serial_port" , serial_port, string("/dev/ttyUSB0") );
     unsigned long baud = 0;
     string str_baud = string("");
     n->param("baud_rate" , str_baud, string("500000") );
@@ -85,8 +83,13 @@ int main(int argc, char const *argv[]){
    //init buffers
    const int dim_buffer = voltages_count*2;
    uint8_t b2write[1], readBytes[dim_buffer];
-	//size_t bytes_wrote;
- 	b2write[0] = 'a';
+   //size_t bytes_wrote;
+   b2write[0] = 'a';
+ 	
+   //mean
+   double voltage_prec[voltages_count];
+   for(int i = 0; i<voltages_count; i++ )
+ 		voltage_prec[i] = 0.0;
    
    //**** ROS MAIN LOOP  ***//
    while(ros::ok()){
@@ -98,6 +101,8 @@ int main(int argc, char const *argv[]){
 		
 		for (int i = 0; i < voltages_count; i++) {
 			finger_voltages.voltages.data[i] = (double)(readBytes[i*2] + (readBytes[i*2+1]&0b00001111)*255) * 3.3/4096.0;
+			finger_voltages.voltages.data[i] = (finger_voltages.voltages.data[i] + voltage_prec[i])/2.0;
+			voltage_prec[i] = finger_voltages.voltages.data[i];
 		}
 		
 		pubTactile.publish(finger_voltages);	

@@ -1,0 +1,35 @@
+<launch>
+
+  <arg name="gripper_model" default="wsg_50" />
+
+  <arg name="linearCalib" default="false" />
+  
+  <arg name="filter_voltages" default="true" />
+  
+  <arg name="voltages_count" default="25" />
+  
+  
+  
+  <include file="$(find wsg_50_driver_sun)/launch/wsg_50_tactile_serial.launch">
+  
+   <arg name="serial_port" default="/dev/ttyUSB0" />
+   
+   <arg name="fingerPosition" default="0" />
+   
+   <arg name="fingerCode" default="#H001-28A" />
+   
+  </include>
+  
+  <include file="$(find wsg_50_driver_sun)/launch/wsg_50_tactile_serial.launch">
+  
+   <arg name="serial_port" default="/dev/ttyUSB1" />
+   
+   <arg name="fingerPosition" default="1" />
+   
+   <arg name="fingerCode" default="#H002-28A" />
+   
+  </include>
+
+
+
+</launch>

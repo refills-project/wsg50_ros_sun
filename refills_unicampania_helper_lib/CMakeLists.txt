@@ -126,6 +126,7 @@ add_library(${PROJECT_NAME}
     src/Helper/Helper1.0.cpp
     src/ANN/ANN_Layer1.0.cpp
     src/ANN/ANN1.0.cpp
+    src/linear_filter/linear_filter.cpp
 )
 
 ## Add cmake target dependencies of the library
