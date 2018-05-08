@@ -75,6 +75,6 @@ install(FILES include/serial/serial.h include/serial/v8stdint.h
   DESTINATION ${CATKIN_GLOBAL_INCLUDE_DESTINATION}/serial)
 
 ## Tests
-if(CATKIN_ENABLE_TESTING)
-    add_subdirectory(tests)
-endif()
+#if(CATKIN_ENABLE_TESTING)
+#    add_subdirectory(tests)
+#endif()
