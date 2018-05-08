@@ -108,4 +108,12 @@ add_dependencies(filter_tactile ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXP
 target_link_libraries(filter_tactile
    ${catkin_LIBRARIES}
  )
+ 
+add_executable(combine_wrench src/combine_wrench_node.cpp)
+
+add_dependencies(combine_wrench ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+target_link_libraries(combine_wrench
+   ${catkin_LIBRARIES}
+ )
 

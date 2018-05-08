@@ -1,0 +1,23 @@
+<launch>
+
+	<arg name="gripper_model" default="wsg_50" />
+
+
+	<include file="$(find wsg_50_driver_sun)/launch/wsg_50_tactile_serial_dual.launch">
+   
+	</include>
+
+	
+
+	<node name="combine_wrench" ns="$(arg gripper_model)_driver_sun/" pkg="wsg_50_driver_sun" type="combine_wrench" output="screen">
+
+		<param name="topic_0" type="string" value="/$(arg gripper_model)_driver_sun/finger0/wrench"/>
+
+		<param name="topic_1" type="string" value="/$(arg gripper_model)_driver_sun/finger1/wrench"/>
+
+		<param name="out_topic" type="string" value="/$(arg gripper_model)_driver_sun/wrench"/>
+
+	</node>
+
+
+</launch>
