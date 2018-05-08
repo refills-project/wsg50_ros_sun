@@ -21,6 +21,8 @@
 
    <param name="serial_port" type="string" value="$(arg serial_port)"/>
 
+	<param name="frame_id" type="string" value="fingertip$(arg fingerPosition)"/>
+
    <param name="topic" type="string" value="/$(arg gripper_model)_driver_sun/finger$(arg fingerPosition)/tactile_voltage"/>
    
    <param name="voltages_count" type="int" value="$(arg voltages_count)"/>
